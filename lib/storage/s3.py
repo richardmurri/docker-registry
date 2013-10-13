@@ -225,4 +225,7 @@ class S3Storage(Storage):
         key = self._s3_bucket.lookup(path)
         if not key:
             raise OSError('No such key: \'{0}\''.format(path))
+        else:
+            # Little trick to retrieve the size correctly using the moto library
+            key.get_contents_as_string()
         return key.size
