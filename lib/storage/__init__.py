@@ -121,10 +121,13 @@ from s3 import S3Storage
 _storage = {}
 
 
-def load(kind=None):
+def load(kind=None, given_cfg=None):
     """Returns the right storage class according to the configuration."""
     global _storage
-    cfg = config.load()
+    if not given_cfg:
+        cfg = config.load()
+    else:
+        cfg = given_cfg
     if not kind:
         kind = cfg.storage.lower()
     if kind in _storage:
